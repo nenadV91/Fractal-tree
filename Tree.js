@@ -18,11 +18,14 @@ class Tree {
   }
 
   createBranches() {
-    this.branches = this.root.branch(this.fractalLevel);
+    this.root.branch(this.fractalLevel);
   }
 
   show() {
-    this.root.show();
-    this.branches.forEach(branch => branch.show());
+    this.root.run(branch => branch.show());
+  }
+
+  map(callback) {
+    this.root.run(branch => callback(branch));
   }
 }

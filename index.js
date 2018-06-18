@@ -1,19 +1,23 @@
 let tree;
 let canvas;
+let grid;
 let config = {
   tree: {
+    color: 255,
     length: 100,
-    branchLength: 0.8,
+    branchLength: 0.75,
     diameter: 10,
-    fractalLevel: 3,
+    fractalLevel: 6,
     leftAngle: 6,
-    rightAngle: 5
+    rightAngle: 5,
+    angleDeviation: 0.8
   }
 }
 
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight)
+  grid = new Grid(10, 5);
   tree = new Tree({
     ...config.tree,
     x: width / 2,
@@ -25,78 +29,82 @@ function setup() {
 function draw() {
   background(0);
   tree.show();
+  grid.show();
 }
 
 
-
-
-
-
-
-class Branch {
-  constructor(props) {
-    this.props = props;
-    this.start = props.start;
-    this.end = props.end;
-
-    this.diameter = props.diameter;
-    this.fractalLevel = props.fractalLevel;
-    this.branchLength = props.branchLength;
-    this.leftAngle = props.leftAngle;
-    this.rightAngle = props.rightAngle;
-    this.length = props.length;
+new Control({
+  text: "Left angle",
+  type: "slider",
+  min: 3,
+  max: 20,
+  value: config.tree.leftAngle,
+  onChange: value => {
+    tree.props.leftAngle = +value;
+    tree.map(branch => {
+      branch.leftAngle = +value;
+      branch.updatePosition();
+    })
   }
+}).render()
 
-  show() {
-    stroke(255)
-    strokeWeight(this.diameter);
-    line(this.start.x, this.start.y, this.end.x, this.end.y);
+
+new Control({
+  text: "Right angle",
+  type: "slider",
+  min: 3,
+  max: 20,
+  value: config.tree.rightAngle,
+  onChange: value => {
+    tree.map(branch => {
+      branch.rightAngle = +value;
+      branch.updatePosition();
+    })
   }
+}).render()
 
-  setLevel(level) {
-    this.level = level;
+new Control({
+  text: "Fractal level",
+  type: "slider",
+  min: 0,
+  max: 15,
+  value: config.tree.fractalLevel,
+  onChange: value => {
+    tree.map(branch => {
+      branch.fractalLevel = Math.floor(value);
+      branch.updateBranches();
+    })
   }
+}).render()
 
-  branch(limit, level = 0) {
-    let branches = [];
-    this.setLevel(level);
 
-    if(limit <= level) {
-       return branches;
-    }
-
-    let left  = this.grow("left");
-    let right = this.grow("right");
-
-    branches.push(left, right);
-    branches.push(...left.branch(limit, level + 1));
-    branches.push(...right.branch(limit, level + 1));
-
-    return branches;
+new Control({
+  text: "Angle deviation",
+  type: "slider",
+  min: 0,
+  max: 1,
+  step: 0.01,
+  value: config.tree.angleDeviation,
+  onChange: value => {
+    tree.map(branch => {
+      branch.angleDeviation = +value;
+      branch.updatePosition();
+    })
   }
+}).render()
 
-  getAngle(direction) {
-    return direction == "left" ? 
-      (PI / this.leftAngle) : 
-      (-PI / this.rightAngle);
+
+new Control({
+  text: "Branch Length",
+  type: "slider",
+  min: 0.4,
+  max: 0.9,
+  step: 0.01,
+  value: config.tree.branchLength,
+  onChange: value => {
+    tree.map(branch => {
+      branch.branchLength = +value;
+      branch.updatePosition();
+    })
   }
-
-  getPosition(angle) {
-    let start = this.end;
-    let rotated = p5.Vector
-      .sub(this.end, this.start)
-      .rotate(angle)
-      .mult(this.branchLength)
-  
-    let end = p5.Vector.add(this.end, rotated);
-    return {start, end}
-  }
-
-  grow(direction) {
-    let angle = this.getAngle(direction);
-    let position = this.getPosition(angle);
-    let diameter
-
-    return new Branch({...this.props, ...position})
-  }
-}
+}).render()

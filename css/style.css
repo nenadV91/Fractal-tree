@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300');
 
+
 html, body {
   margin: 0;
   padding: 0;
@@ -13,8 +14,58 @@ canvas {
   vertical-align: top;
 }
 
+
+.slider-container .back-bar .pointer-label,
+.slider-container .back-bar .pointer-label.focused {
+  background: transparent;
+  color: #3CB2AD;
+  top: -10px;
+}
+
+.theme-green .back-bar .pointer {
+  top: -6px;
+  background-color: #3CB2AD;
+  background-image: none;
+  border: none;
+}
+
+.theme-green .back-bar .selected-bar {
+  background-color: #3CB2AD;
+  background-image: none;
+}
+
+.theme-green .back-bar {
+  background-image: none;
+  background-color: #849C9F;
+  height: 3px;
+}
+
+.control-option {
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.control-element {
+  width: 100%;
+}
+
+
+
 #controls {
+  background: linear-gradient(rgba(2, 56, 58, 0.45), rgba(5, 19, 28, 0.45));
+  padding: 15px;
   position: fixed;
-  right: 5px;
-  top: 5px;
+  top: 10px;
+  right: 10px;
+  width: 400px;
+  max-width: 70%;
+}
+
+td:first-child {
+  padding: 10px 0;
+  padding-right: 10px;
+}
+
+td {
+  white-space: nowrap;
 }
