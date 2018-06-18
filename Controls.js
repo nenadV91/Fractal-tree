@@ -1,119 +1,107 @@
-const controls = $('#controls table tbody');
-
-class Control {
-  constructor(props) {
-    this.text = props.text || "Label";
-    this.min = props.min || 0;
-    this.max = props.max || 5;
-    this.step = props.step || 0.1;
-    this.onChange = props.onChange;
-    this.onClick = props.onClick;
-    this.value = props.value;
-    this.snap = props.snap;
-    this.scale = props.scale;
-    this.type = props.type;
-  }
-
-  render() {
-    if(this.type == "slider") this.slider();
-    if(this.type == "toggle") this.toggle();
-    if(this.type == "button") this.button();
-  }
-
-  toggle() {
-    let labelCell = $("<td />", {
-      text: this.text,
-      class: "control-label"
-    });
-
-    let switchCell = $("<td />", {
-      class: "control-element"
+new Control({
+  text: "Left angle",
+  type: "slider",
+  min: 3,
+  max: 20,
+  value: config.tree.leftAngle,
+  onChange: value => {
+    tree.props.leftAngle = +value;
+    config.tree.leftAngle = +value;
+    tree.map(branch => {
+      branch.leftAngle = +value;
+      branch.updatePosition();
     })
-
-    let toggle = $("<input />", {
-      class: "slider-input",
-      type: "checkbox",
-      checked: this.value,
-      on: {
-        change: event => this.onChange(event.target.checked)
-      }
-    });
-
-    let element = $("<tr />", {
-      class: "control-option"
-    });
-
-    labelCell.appendTo(element);
-    toggle.appendTo(switchCell);
-    switchCell.appendTo(element);
-    element.appendTo(controls);
   }
-  
-  slider() {
-    let labelCell = $("<td />", {
-      text: this.text,
-      class: "control-label"
-    });
+}).render()
 
-    let sliderCell = $("<td />", {
-      class: "control-element"
+
+new Control({
+  text: "Right angle",
+  type: "slider",
+  min: 3,
+  max: 20,
+  value: config.tree.rightAngle,
+  onChange: value => {
+    tree.props.rightAngle = +value;
+    config.tree.rightAngle = +value;
+    tree.map(branch => {
+      branch.rightAngle = +value;
+      branch.updatePosition();
     })
-
-    let slider = $("<input />", {
-      class: "slider-input",
-      value: this.value
-    });
-
-    let element = $("<tr />", {
-      class: "control-option"
-    });
-
-    labelCell.appendTo(element);
-    slider.appendTo(sliderCell);
-    sliderCell.appendTo(element);
-    element.appendTo(controls);
-
-
-    slider.jRange({
-        from: this.min,
-        to: this.max,
-        step: this.step,
-        snap: this.snap || false,
-        scale: this.scale || false,
-        width: "100%",
-        onstatechange: (value) => {
-          if(typeof tree != "undefined") {
-            this.onChange(value);
-          }
-        }
-    });
   }
+}).render()
 
-  button() {
-    let labelCell = $("<td />", {
-      class: "control-label"
-    });
-
-    let buttonCell = $("<td />", {
-      class: "control-element"
+new Control({
+  text: "Fractal level",
+  type: "slider",
+  min: 0,
+  max: 15,
+  step: 1,
+  value: config.tree.fractalLevel,
+  onChange: value => {
+    tree.fractalLevel = +value;
+    config.tree.fractalLevel = +value;
+    tree.map(branch => {
+      branch.fractalLevel = +value;
+      branch.updateBranches();
     })
-
-    let button = $("<button />", {
-      class: "button",
-      type: "button",
-      text: this.text,
-      on: {
-        click: event => this.onClick(event)
-      }
-    });
-
-    let element = $("<tr />", {
-      class: "control-option"
-    });
-    
-    labelCell.appendTo(element);
-    button.appendTo(buttonCell);
-    buttonCell.appendTo(element);
-    element.appendTo(controls);
   }
-}
+}).render()
+
+
+new Control({
+  text: "Angle deviation",
+  type: "slider",
+  min: 0,
+  max: 1,
+  step: 0.01,
+  value: config.tree.angleDeviation,
+  onChange: value => {
+    tree.props.angleDeviation = +value;
+    tree.map(branch => {
+      branch.angleDeviation = +value;
+      branch.updatePosition();
+    })
+  }
+}).render()
+
+new Control({
+  text: "Length deviation",
+  type: "slider",
+  min: 0,
+  max: 1,
+  step: 0.01,
+  value: config.tree.lengthDeviation,
+  onChange: value => {
+    tree.props.lengthDeviation = +value;
+    tree.map(branch => {
+      branch.lengthDeviation = +value;
+      branch.updatePosition();
+    })
+  }
+}).render()
+
+
+new Control({
+  text: "Branch Length",
+  type: "slider",
+  min: 0.4,
+  max: 0.9,
+  step: 0.01,
+  value: config.tree.branchLength,
+  onChange: value => {
+    tree.props.branchLength = +value;
+    tree.map(branch => {
+      branch.branchLength = +value;
+      branch.updatePosition();
+    })
+  }
+}).render()
+
+new Control({
+  text: "Generate",
+  type: "button",
+  onClick: event => {
+    tree.generate();
+  }
+}).render()

@@ -22,6 +22,7 @@ class Grid {
   }
 
   show() {
+    translate(-width / 2, -height)
     stroke(color(255, 255, 255, 20));
     strokeWeight(1);
 
