@@ -6,8 +6,7 @@ class Tree {
     this.length = props.length;
     this.fractalLevel = props.fractalLevel;
 
-    this.createRoot();
-    this.createBranches();
+    this.generate();
   }
 
   createRoot() {
@@ -27,5 +26,10 @@ class Tree {
 
   map(callback) {
     this.root.run(branch => callback(branch));
+  }
+
+  generate() {
+    this.createRoot();
+    this.createBranches();
   }
 }

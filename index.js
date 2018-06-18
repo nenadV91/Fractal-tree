@@ -7,10 +7,11 @@ let config = {
     length: 100,
     branchLength: 0.75,
     diameter: 10,
-    fractalLevel: 6,
-    leftAngle: 6,
-    rightAngle: 5,
-    angleDeviation: 0.8
+    fractalLevel: 10,
+    leftAngle: 7.5,
+    rightAngle: 6.5,
+    angleDeviation: 0.8,
+    lengthDeviation: 0.4
   }
 }
 
@@ -41,6 +42,7 @@ new Control({
   value: config.tree.leftAngle,
   onChange: value => {
     tree.props.leftAngle = +value;
+    config.tree.leftAngle = +value;
     tree.map(branch => {
       branch.leftAngle = +value;
       branch.updatePosition();
@@ -56,6 +58,8 @@ new Control({
   max: 20,
   value: config.tree.rightAngle,
   onChange: value => {
+    tree.props.rightAngle = +value;
+    config.tree.rightAngle = +value;
     tree.map(branch => {
       branch.rightAngle = +value;
       branch.updatePosition();
@@ -68,10 +72,13 @@ new Control({
   type: "slider",
   min: 0,
   max: 15,
+  step: 1,
   value: config.tree.fractalLevel,
   onChange: value => {
+    tree.fractalLevel = +value;
+    config.tree.fractalLevel = +value;
     tree.map(branch => {
-      branch.fractalLevel = Math.floor(value);
+      branch.fractalLevel = +value;
       branch.updateBranches();
     })
   }
@@ -86,8 +93,25 @@ new Control({
   step: 0.01,
   value: config.tree.angleDeviation,
   onChange: value => {
+    tree.props.angleDeviation = +value;
     tree.map(branch => {
       branch.angleDeviation = +value;
+      branch.updatePosition();
+    })
+  }
+}).render()
+
+new Control({
+  text: "Length deviation",
+  type: "slider",
+  min: 0,
+  max: 1,
+  step: 0.01,
+  value: config.tree.lengthDeviation,
+  onChange: value => {
+    tree.props.lengthDeviation = +value;
+    tree.map(branch => {
+      branch.lengthDeviation = +value;
       branch.updatePosition();
     })
   }
@@ -102,9 +126,18 @@ new Control({
   step: 0.01,
   value: config.tree.branchLength,
   onChange: value => {
+    tree.props.branchLength = +value;
     tree.map(branch => {
       branch.branchLength = +value;
       branch.updatePosition();
     })
+  }
+}).render()
+
+new Control({
+  text: "Generate",
+  type: "button",
+  onClick: event => {
+    tree.generate();
   }
 }).render()

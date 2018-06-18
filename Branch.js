@@ -1,4 +1,3 @@
-
 class Branch {
   constructor(props) {
     this.props = props;
@@ -14,6 +13,7 @@ class Branch {
     this.rightAngle = props.rightAngle;
     this.length = props.length;
     this.angleDeviation = props.angleDeviation;
+    this.lengthDeviation = props.lengthDeviation;
   }
 
   show() {
@@ -41,6 +41,7 @@ class Branch {
     let branches = [];
     this.level = level;
     this.maxAngleDeviation = this.rand2(3);
+    this.maxLengthDeviation = this.rand2(0.2);
 
     if(limit <= level) {
        return branches;
@@ -65,12 +66,17 @@ class Branch {
       (PI / (this.rightAngle + this.maxAngleDeviation * this.angleDeviation));
   }
 
+  getLength() {
+    return this.branchLength + this.maxLengthDeviation * this.lengthDeviation;
+  }
+
   getPosition(angle) {
     let start = this.end;
+    let length = this.getLength();
     let rotated = p5.Vector
       .sub(this.end, this.start)
       .rotate(angle)
-      .mult(this.branchLength)
+      .mult(length)
   
     let end = p5.Vector.add(this.end, rotated);
     return {start, end}
