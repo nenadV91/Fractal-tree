@@ -2,17 +2,22 @@ let tree;
 let canvas;
 let grid;
 let config = {
-  view: {},
+  view: {
+    x: null,
+    y: null
+  },
   tree: {
     color: 255,
-    length: 100,
-    branchLength: 0.75,
-    diameter: 10,
-    fractalLevel: 10,
-    leftAngle: 7.5,
-    rightAngle: 6.5,
-    angleDeviation: 0.8,
-    lengthDeviation: 0.4
+    length: 120,
+    branchLength: 0.7,
+    diameter: 20,
+    fractalLevel: 9,
+    leftAngle: 7,
+    rightAngle: 7,
+    angleDeviation: 0.4,
+    lengthDeviation: 0.2,
+    diameterDeviation: 0.7,
+    showFlowers: true
   }
 }
 

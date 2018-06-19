@@ -40,7 +40,7 @@ new Control({
   value: config.tree.fractalLevel,
   onChange: value => {
     tree.fractalLevel = +value;
-    config.tree.fractalLevel = +value;
+    tree.props.fractalLevel = +value;
     tree.map(branch => {
       branch.fractalLevel = +value;
       branch.updateBranches();
@@ -53,7 +53,7 @@ new Control({
   text: "Angle deviation",
   type: "slider",
   min: 0,
-  max: 1,
+  max: 0.6,
   step: 0.01,
   value: config.tree.angleDeviation,
   onChange: value => {
@@ -83,6 +83,22 @@ new Control({
 
 
 new Control({
+  text: "Diameter deviation",
+  type: "slider",
+  min: 0,
+  max: 1,
+  value: config.tree.diameterDeviation,
+  onChange: value => {
+    tree.props.diameterDeviation = +value;
+    tree.map(branch => {
+      branch.diameterDeviation = +value;
+      branch.updateDiameter();
+    })
+  }
+}).render()
+
+
+new Control({
   text: "Branch Length",
   type: "slider",
   min: 0.4,
@@ -97,6 +113,18 @@ new Control({
     })
   }
 }).render()
+
+
+new Control({
+  text: "Show flowers",
+  type: "toggle",
+  value: config.tree.showFlowers,
+  onChange: value => {
+    tree.props.showFlowers = value;
+    tree.map(branch => branch.showFlowers = value)
+  }
+}).render()
+
 
 new Control({
   text: "Generate",
