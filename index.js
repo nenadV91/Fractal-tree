@@ -8,7 +8,7 @@ let config = {
   },
   tree: {
     color: "rgb(255, 255, 255)",
-    length: 120,
+    rootLength: 120,
     branchLength: 0.7,
     diameter: 20,
     fractalLevel: 9,

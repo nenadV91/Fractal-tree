@@ -47,18 +47,22 @@ class Branch {
     return random(min, max);
   }
 
-  normalize(value, min, max) {
-    return (value - min) / (max - min);
-  }
-
   branch(limit, level = 0) {
     let branches = [];
     this.level = level;
 
     let minDiameter = map(this.level, this.fractalLevel, 0, 0.3, 0.8);
     this.randDiameter = random(minDiameter, 1.2);
+
     this.randAngleDeviation = this.rand3(-this.level - 1, this.level + 1);
-    this.randLengthDeviation = this.rand3(0.1, 0.6);
+
+    // let minLength = map(this.level, this.fractalLevel, 0, -1, 0.1);
+    // let maxLength = map(this.level, this.fractalLevel, 0, 0.4, 2);
+
+    // let minLength = map(this.level, this.fractalLevel, 0, -0.5, 0.3);
+    // let maxLength = map(this.level, this.fractalLevel, 0, 0.1, 2);
+
+    this.randLengthDeviation = this.rand3(0.1, 0.7);
     this.growFlower()
 
 
@@ -91,8 +95,8 @@ class Branch {
 
   getDiameter() {
     let factor = map(this.diameterDeviation, 1, 0, this.randDiameter, 1);
-    let diameter = map(this.level, 0, this.fractalLevel, 0.9, 0.5);
-    return this.diameter * diameter * factor;
+    let relative = map(this.level, 0, this.fractalLevel, 0.9, 0.5);
+    return this.diameter * relative * factor;
   }
 
   getPosition(angle) {

@@ -3,7 +3,7 @@ class Tree {
     this.props = props;
     this.x = props.x || 0;
     this.y = props.y || 0;
-    this.length = props.length;
+    this.rootLength = props.rootLength;
     this.fractalLevel = props.fractalLevel;
 
     this.generate();
@@ -11,7 +11,7 @@ class Tree {
 
   createRoot() {
     let start = new p5.Vector(this.x, this.y);
-    let end   = new p5.Vector(this.x, this.y - this.length);
+    let end   = new p5.Vector(this.x, this.y - this.rootLength);
     this.root = new Branch({start, end, ...this.props});
   }
 
