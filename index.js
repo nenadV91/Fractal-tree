@@ -7,7 +7,7 @@ let config = {
     y: null
   },
   tree: {
-    color: 255,
+    color: "rgb(255, 255, 255)",
     length: 120,
     branchLength: 0.7,
     diameter: 20,
@@ -17,13 +17,14 @@ let config = {
     angleDeviation: 0.4,
     lengthDeviation: 0.2,
     diameterDeviation: 0.7,
+    treeAlpha: 100,
     showFlowers: true
   }
 }
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight)
-  config.view = {x: width / 2, y: height}
+  config.view = {x: width / 2.5, y: height}
   grid = new Grid(10, 5);
   tree = new Tree({...config.tree});
 }
@@ -38,5 +39,5 @@ function draw() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   grid.create();
-  config.view = {x: width / 2, y: height}
+  config.view = {x: width / 2.5, y: height}
 }

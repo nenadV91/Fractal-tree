@@ -99,6 +99,21 @@ new Control({
 
 
 new Control({
+  text: "Tree alpha",
+  type: "slider",
+  min: 1,
+  max: 255,
+  value: config.tree.treeAlpha,
+  onChange: value => {
+    tree.props.treeAlpha = +value;
+    tree.map(branch => {
+      branch.treeAlpha = +value;
+    })
+  }
+}).render()
+
+
+new Control({
   text: "Branch Length",
   type: "slider",
   min: 0.4,

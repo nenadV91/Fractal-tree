@@ -16,15 +16,16 @@ class Branch {
     this.lengthDeviation = props.lengthDeviation;
     this.diameterDeviation = props.diameterDeviation;
     this.showFlowers = props.showFlowers;
+    this.treeAlpha = props.treeAlpha;
   }
 
   show() {
-    stroke(this.color);
+    let col = color(this.color);
+    col.setAlpha(this.treeAlpha);
+    stroke(col);
     strokeWeight(this.diameter);
     line(this.start.x, this.start.y, this.end.x, this.end.y);
-    if(this.flower) {
-      if(this.showFlowers) this.flower.show();
-    }
+    if(this.flower) if(this.showFlowers) this.flower.show();
   }
 
   run(callback) {
@@ -53,7 +54,9 @@ class Branch {
   branch(limit, level = 0) {
     let branches = [];
     this.level = level;
-    this.randDiameter = random(0.4, 1.3);
+
+    let minDiameter = map(this.level, this.fractalLevel, 0, 0.3, 0.8);
+    this.randDiameter = random(minDiameter, 1.2);
     this.randAngleDeviation = this.rand3(-this.level - 1, this.level + 1);
     this.randLengthDeviation = this.rand3(0.1, 0.6);
     this.growFlower()

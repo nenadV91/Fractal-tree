@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat:300');*/
 
 
 html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: 'Montserrat', sans-serif;
+  /*font-family: 'Montserrat', sans-serif;*/
   font-size: 12px;
   color: #849C9F;
 }

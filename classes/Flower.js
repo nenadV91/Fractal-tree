@@ -11,8 +11,6 @@ class Flower {
     strokeWeight(2)
     fill('rgba(5, 251, 254, 0.4)');
     stroke('rgba(5, 251, 254, 0.2)');
-    // noFill()
-    //rgb(139, 4, 92)rgb(228, 146, 225)rgb(5, 251, 254)
     push()
     
     translate(this.x, this.y);
