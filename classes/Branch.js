@@ -17,6 +17,7 @@ class Branch {
     this.diameterDeviation = props.diameterDeviation;
     this.showFlowers = props.showFlowers;
     this.treeAlpha = props.treeAlpha;
+    this.flowerColor = props.flowerColor;
   }
 
   show() {
@@ -143,7 +144,7 @@ class Branch {
     }
 
     if(this.level == this.fractalLevel) {
-      this.flower = new Flower(this.end);
+      this.flower = new Flower(this.end, this.flowerColor);
     }
 
     if(this.level < this.fractalLevel) {
@@ -165,7 +166,7 @@ class Branch {
 
   growFlower() {
     if(this.level == this.fractalLevel) {
-      this.flower = new Flower(this.end);
+      this.flower = new Flower(this.end, this.flowerColor);
     }
   }
 }

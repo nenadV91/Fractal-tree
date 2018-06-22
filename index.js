@@ -8,6 +8,7 @@ let config = {
   },
   tree: {
     color: "rgb(255, 255, 255)",
+    flowerColor: "rgb(5, 251, 254)",
     rootLength: 120,
     branchLength: 0.7,
     diameter: 20,

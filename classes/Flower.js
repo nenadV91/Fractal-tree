@@ -1,7 +1,8 @@
 class Flower {
-  constructor(position, width, height) {
+  constructor(position, color, width, height) {
     this.x = position.x;
     this.y = position.y;
+    this.color = color;
 
     this.height = height || Math.random() * 5;
     this.width = width || Math.random() * 20;
@@ -9,8 +10,15 @@ class Flower {
 
   show() {
     strokeWeight(2)
-    fill('rgba(5, 251, 254, 0.4)');
-    stroke('rgba(5, 251, 254, 0.2)');
+
+    let fillColor = color(this.color);
+    let strokeColor = color(this.color);
+    fillColor.setAlpha(100);
+    strokeColor.setAlpha(50);
+
+    fill(fillColor);
+    stroke(strokeColor);
+    
     push()
     
     translate(this.x, this.y);
